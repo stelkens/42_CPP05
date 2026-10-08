@@ -5,7 +5,7 @@
 #include <string>
 #include <exception>
 
-class Form
+class AForm
 {
 	private:
 		std::string const	_formName;
@@ -14,11 +14,11 @@ class Form
 		int const			_gradeToExecute;
 
 	public:
-		Form(std::string formName, int const gradeToSign, int const gradeToExecute);
-		Form(const Form &other);
-		~Form();
+		AForm(std::string formName, int const gradeToSign, int const gradeToExecute);
+		AForm(const AForm &other);
+		~AForm();
 
-		Form &operator=(const Form &other);
+		AForm &operator=(const AForm &other);
 
 		std::string	getName() const;
 		bool		getSignedStatus() const;
@@ -47,6 +47,6 @@ class Form
 		};
 };
 
-std::ostream	&operator<<(std::ostream &out, const Form &obj);
+std::ostream	&operator<<(std::ostream &out, const AForm &obj);
 
 #endif

@@ -3,7 +3,7 @@
 	#include <iostream>
 
 	int main (){
-		Form a ("a", 4, 5);
+		AForm a ("a", 4, 5);
 		std::cout << a;
 
 		Bureaucrat Ela ("ela", 16);
@@ -29,7 +29,7 @@
 		std::cout << a;
 
 		try{
-		Form tooHigh ("high", -1, 66);
+		AForm tooHigh ("high", -1, 66);
 		std::cout << tooHigh;
 		}
 		catch(const std::exception &e){
@@ -37,7 +37,7 @@
 		}
 
 		try{
-		Form High ("high_again", 44, 0);
+		AForm High ("high_again", 44, 0);
 		std::cout << High;
 		}
 		catch(const std::exception &e){
@@ -45,7 +45,7 @@
 		}
 
 		try{
-			Form tooLow ("low", 255, 15);
+			AForm tooLow ("low", 255, 15);
 			std::cout << tooLow;
 		}
 		catch(const std::exception &e){
@@ -54,14 +54,14 @@
 
 
 		try{
-			Form Low ("low_again", 38, 154);
+			AForm Low ("low_again", 38, 154);
 			std::cout << Low;
 		}
 		catch(const std::exception &e){
 			std::cout << e.what() << std::endl;
 		}
 
-		Form b (a);
+		AForm b (a);
 		std::cout << b;
 
 		return 0;

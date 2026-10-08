@@ -1,11 +1,13 @@
 .PHONY: all clean fclean re debug
 
-NAME = ex00
+NAME = ex01
 
 SRC = ${addprefix src/, main.cpp\
+						AForm.cpp\
 						Bureaucrat.cpp}
 
-HEADERS =  ${addprefix include/,	Bureaucrat.hpp}
+HEADERS =  ${addprefix include/,	AForm.hpp\
+									Bureaucrat.hpp}
 
 OBJ = $(SRC:src/%.cpp=build/%.o)
 
