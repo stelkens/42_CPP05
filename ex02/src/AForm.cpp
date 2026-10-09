@@ -24,12 +24,17 @@ AForm::GradeTooHighException::~GradeTooHighException() throw(){
 AForm::GradeTooLowException::~GradeTooLowException() throw(){
 }
 
-AForm::GradeTooHighException::GradeTooHighException(const std::string &errTyp): _msg("Grade is too high. " + errTyp){
+AForm::FormNotExecuted::~FormNotExecuted() throw(){
 }
 
-AForm::GradeTooLowException::GradeTooLowException(const std::string &errTyp): _msg("Grade is too low. " + errTyp){
+AForm::GradeTooHighException::GradeTooHighException(const std::string &errTyp): _msg("Error: Grade is too high. " + errTyp){
 }
 
+AForm::GradeTooLowException::GradeTooLowException(const std::string &errTyp): _msg("Error: Grade is too low. " + errTyp){
+}
+
+AForm::FormNotExecuted::FormNotExecuted(const std::string &errTyp): _msg("Error: Form couldn't be executet. " + errTyp){
+}
 
 AForm &AForm::operator=(const AForm &other){
 	if (this != &other)
@@ -57,12 +62,25 @@ int			AForm::getGradeToExecute() const{
 }
 
 void		AForm::beSigned(const Bureaucrat &bureaucrat){
-	if (bureaucrat.getGrade() <= getGradeToSign()){
-		_signed = true;
-		std::cout << bureaucrat.getName() << " signed " << _formName << ".\n";
-	}
-	else
+	if (bureaucrat.getGrade() > getGradeToSign())
 		throw AForm::GradeTooLowException("Bureaucrat " + bureaucrat.getName() + " needs higher grade to sign " + _formName);
+	_signed = true;
+	std::cout << bureaucrat.getName() << " signed " << _formName << ".\n";
+}
+
+void		AForm::execute(Bureaucrat const &executor) const{
+	if (!_signed)
+		throw AForm::FormNotExecuted("Form " + _formName + " isn't signed.");
+	if (executor.getGrade() > _gradeToExecute)
+		throw AForm::FormNotExecuted("Bureaucrat " + executor.getName() + " needs higher grade to execute " + _formName);
+	try{
+		executeAction();
+		std::cout << executor.getName() << " executed " << _formName << "\n";
+	}
+	catch (const std::exception &e){
+		std::cout << e.what() << std::endl;
+	}
+	
 }
 
 const char*		AForm::GradeTooHighException:: what() const throw(){
@@ -73,8 +91,12 @@ const char*		AForm::GradeTooLowException:: what() const throw(){
 	return _msg.c_str();
 }
 
+const char*		AForm::FormNotExecuted:: what() const throw (){
+	return _msg.c_str();
+}
+
 std::ostream	&operator<<(std::ostream &out, const AForm &obj){
-	out << obj.getName() << ":\t\tsigned\t\t\t\t" << std::boolalpha << obj.getSignedStatus() << "\n\t\trequired grade to sign\t\t" << obj.getGradeToSign() 
+	out << obj.getName() << ":\n\t\tsigned\t\t\t\t" << std::boolalpha << obj.getSignedStatus() << "\n\t\trequired grade to sign\t\t" << obj.getGradeToSign() 
 		<< "\n\t\trequired grade to execute\t" << obj.getGradeToExecute() << std::endl;
 	return out;
 }

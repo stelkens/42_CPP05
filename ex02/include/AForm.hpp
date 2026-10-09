@@ -1,10 +1,10 @@
 #ifndef AFORM_HPP
 #define AFORM_HPP
 
-#include "Bureaucrat.hpp"
 #include <string>
 #include <exception>
 
+class Bureaucrat;
 class AForm
 {
 	private:
@@ -26,7 +26,8 @@ class AForm
 		int				getGradeToExecute() const;
 
 		void			beSigned(const Bureaucrat &bureaucrat);
-		virtual void	execute(Bureaucrat const &executor) const = 0;
+		void			execute(Bureaucrat const &executor) const;
+		virtual	void	executeAction() const = 0;
 
 		class		GradeTooHighException : public std::exception
 		{
@@ -42,8 +43,18 @@ class AForm
 			private:
 				std::string _msg;
 			public:
-				GradeTooLowException(const std::string& errTyp);
+				GradeTooLowException(const std::string &errTyp);
 				~GradeTooLowException() throw();
+				virtual const char* what() const throw();
+		};
+
+		class		FormNotExecuted : public std::exception
+		{
+			private:
+				std::string _msg;
+			public:
+				FormNotExecuted(const std::string &errTyp);
+				~FormNotExecuted() throw();
 				virtual const char* what() const throw();
 		};
 };

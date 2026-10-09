@@ -1,4 +1,6 @@
 #include "Bureaucrat.hpp"
+#include "AForm.hpp"
+
 #include <iostream>
 
 Bureaucrat::Bureaucrat(const std::string &name, int grade): _name(name), _grade(grade){
@@ -15,17 +17,19 @@ Bureaucrat::Bureaucrat(const Bureaucrat &other): _name(other._name + "_copy"), _
 Bureaucrat::~Bureaucrat(){
 }
 
+Bureaucrat::GradeTooHighException::GradeTooHighException(const std::string &errTyp): _msg("Error: Grade is too high. " + errTyp){
+}
+
+Bureaucrat::GradeTooLowException::GradeTooLowException(const std::string &errTyp): _msg("Error: Grade is too low. " + errTyp){
+}
+
 Bureaucrat::GradeTooHighException::~GradeTooHighException() throw(){
 }
 
 Bureaucrat::GradeTooLowException::~GradeTooLowException() throw(){
 }
 
-Bureaucrat::GradeTooHighException::GradeTooHighException(const std::string &errTyp): _msg("Error: Grade is too high. " + errTyp){
-}
 
-Bureaucrat::GradeTooLowException::GradeTooLowException(const std::string &errTyp): _msg("Error: Grade is too low. " + errTyp){
-}
 
 Bureaucrat &Bureaucrat::operator=(const Bureaucrat &other){
 	if (this != &other)
@@ -53,6 +57,15 @@ void		Bureaucrat::decGrade(){
 	if (_grade + 1 > 150)
 		throw Bureaucrat::GradeTooLowException("Decrementation of grade from " + _name + " failed.");
 	++_grade;
+}
+
+void		Bureaucrat::executeForm(AForm const &form) const{
+	try{
+		form.execute(*this);
+	}
+	catch (const std::exception &e){
+		std::cout << e.what() << std::endl;
+	}
 }
 
 const char*		Bureaucrat::GradeTooHighException:: what() const throw(){
