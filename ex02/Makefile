@@ -5,11 +5,15 @@ NAME = ex02
 SRC = ${addprefix src/, main.cpp\
 						AForm.cpp\
 						Bureaucrat.cpp\
-						ShrubberyCreationForm.cpp}
+						ShrubberyCreationForm.cpp\
+						RobotomyRequestForm.cpp\
+						PresidentialPardonForm.cpp}
 
 HEADERS =  ${addprefix include/,	AForm.hpp\
 									Bureaucrat.hpp\
-									ShrubberyCreationForm.hpp}
+									ShrubberyCreationForm.hpp\
+									RobotomyRequestForm.hpp\
+									PresidentialPardonForm.hpp}
 
 OBJ = $(SRC:src/%.cpp=build/%.o)
 
@@ -34,6 +38,7 @@ debug:	fclean $(NAME)
 
 clean:
 	rm -rf build
+	rm -f *_shrubbery
 
 fclean: clean
 	rm -f $(NAME)

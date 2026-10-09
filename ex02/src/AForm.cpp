@@ -27,13 +27,13 @@ AForm::GradeTooLowException::~GradeTooLowException() throw(){
 AForm::FormNotExecuted::~FormNotExecuted() throw(){
 }
 
-AForm::GradeTooHighException::GradeTooHighException(const std::string &errTyp): _msg("Error: Grade is too high. " + errTyp){
+AForm::GradeTooHighException::GradeTooHighException(const std::string &errTyp): _msg("Error: Grade is too high. " + errTyp + "\n"){
 }
 
-AForm::GradeTooLowException::GradeTooLowException(const std::string &errTyp): _msg("Error: Grade is too low. " + errTyp){
+AForm::GradeTooLowException::GradeTooLowException(const std::string &errTyp): _msg("Error: Grade is too low. " + errTyp + "\n"){
 }
 
-AForm::FormNotExecuted::FormNotExecuted(const std::string &errTyp): _msg("Error: Form couldn't be executet. " + errTyp){
+AForm::FormNotExecuted::FormNotExecuted(const std::string &errTyp): _msg("Error: Form couldn't be executet. " + errTyp + "\n"){
 }
 
 AForm &AForm::operator=(const AForm &other){
@@ -65,7 +65,7 @@ void		AForm::beSigned(const Bureaucrat &bureaucrat){
 	if (bureaucrat.getGrade() > getGradeToSign())
 		throw AForm::GradeTooLowException("Bureaucrat " + bureaucrat.getName() + " needs higher grade to sign " + _formName);
 	_signed = true;
-	std::cout << bureaucrat.getName() << " signed " << _formName << ".\n";
+	std::cout << bureaucrat.getName() << " signed " << _formName << ".\n\n";
 }
 
 void		AForm::execute(Bureaucrat const &executor) const{
@@ -75,7 +75,7 @@ void		AForm::execute(Bureaucrat const &executor) const{
 		throw AForm::FormNotExecuted("Bureaucrat " + executor.getName() + " needs higher grade to execute " + _formName);
 	try{
 		executeAction();
-		std::cout << executor.getName() << " executed " << _formName << "\n";
+		std::cout << executor.getName() << " executed " << _formName << ".\n\n";
 	}
 	catch (const std::exception &e){
 		std::cout << e.what() << std::endl;
@@ -97,6 +97,6 @@ const char*		AForm::FormNotExecuted:: what() const throw (){
 
 std::ostream	&operator<<(std::ostream &out, const AForm &obj){
 	out << obj.getName() << ":\n\t\tsigned\t\t\t\t" << std::boolalpha << obj.getSignedStatus() << "\n\t\trequired grade to sign\t\t" << obj.getGradeToSign() 
-		<< "\n\t\trequired grade to execute\t" << obj.getGradeToExecute() << std::endl;
+		<< "\n\t\trequired grade to execute\t" << obj.getGradeToExecute() << "\n\n";
 	return out;
 }
