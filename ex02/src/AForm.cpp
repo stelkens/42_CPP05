@@ -24,7 +24,7 @@ AForm::GradeTooHighException::~GradeTooHighException() throw(){
 AForm::GradeTooLowException::~GradeTooLowException() throw(){
 }
 
-AForm::FormNotExecuted::~FormNotExecuted() throw(){
+AForm::FormNotExecutedException::~FormNotExecutedException() throw(){
 }
 
 AForm::GradeTooHighException::GradeTooHighException(const std::string &errTyp): _msg("Error: Grade is too high. " + errTyp + "\n"){
@@ -33,7 +33,7 @@ AForm::GradeTooHighException::GradeTooHighException(const std::string &errTyp): 
 AForm::GradeTooLowException::GradeTooLowException(const std::string &errTyp): _msg("Error: Grade is too low. " + errTyp + "\n"){
 }
 
-AForm::FormNotExecuted::FormNotExecuted(const std::string &errTyp): _msg("Error: Form couldn't be executet. " + errTyp + "\n"){
+AForm::FormNotExecutedException::FormNotExecutedException(const std::string &errTyp): _msg("Error: Form couldn't be executet. " + errTyp + "\n"){
 }
 
 AForm &AForm::operator=(const AForm &other){
@@ -70,9 +70,9 @@ void		AForm::beSigned(const Bureaucrat &bureaucrat){
 
 void		AForm::execute(Bureaucrat const &executor) const{
 	if (!_signed)
-		throw AForm::FormNotExecuted("Form " + _formName + " isn't signed.");
+		throw AForm::FormNotExecutedException("Form " + _formName + " isn't signed.");
 	if (executor.getGrade() > _gradeToExecute)
-		throw AForm::FormNotExecuted("Bureaucrat " + executor.getName() + " needs higher grade to execute " + _formName);
+		throw AForm::FormNotExecutedException("Bureaucrat " + executor.getName() + " needs higher grade to execute " + _formName);
 	try{
 		executeAction();
 		std::cout << executor.getName() << " executed " << _formName << ".\n\n";
@@ -91,7 +91,7 @@ const char*		AForm::GradeTooLowException:: what() const throw(){
 	return _msg.c_str();
 }
 
-const char*		AForm::FormNotExecuted:: what() const throw (){
+const char*		AForm::FormNotExecutedException:: what() const throw (){
 	return _msg.c_str();
 }
 

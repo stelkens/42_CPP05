@@ -16,7 +16,7 @@ class AForm
 	public:
 		AForm(std::string formName, int const gradeToSign, int const gradeToExecute);
 		AForm(const AForm &other);
-		~AForm();
+		virtual ~AForm();
 
 		AForm &operator=(const AForm &other);
 
@@ -48,13 +48,13 @@ class AForm
 				virtual const char* what() const throw();
 		};
 
-		class		FormNotExecuted : public std::exception
+		class		FormNotExecutedException : public std::exception
 		{
 			private:
 				std::string _msg;
 			public:
-				FormNotExecuted(const std::string &errTyp);
-				~FormNotExecuted() throw();
+				FormNotExecutedException(const std::string &errTyp);
+				~FormNotExecutedException() throw();
 				virtual const char* what() const throw();
 		};
 };

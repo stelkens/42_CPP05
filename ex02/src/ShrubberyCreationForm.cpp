@@ -24,7 +24,7 @@ ShrubberyCreationForm &ShrubberyCreationForm::operator=(const ShrubberyCreationF
 void	ShrubberyCreationForm::executeAction() const{
 	std::ofstream file ((_target + "_shrubbery").c_str());
 	if (!file)
-		throw AForm::FormNotExecuted("Creation of " + _target + "_shrubbery File failed.");
+		throw AForm::FormNotExecutedException("Creation of " + _target + "_shrubbery File failed.");
 	file << "      ***    *       \n";
 	file << "  *  *****  ***   *  \n";
 	file << " ***  ***  ***** *** \n";
