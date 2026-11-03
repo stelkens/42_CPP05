@@ -3,7 +3,6 @@
 #include "AForm.hpp"
 #include <iostream>
 #include <cstdlib>
-#include <ctime>
 
 RobotomyRequestForm::RobotomyRequestForm(std::string const target): AForm("RobotomyRequestForm",72,45), _target(target){
 }
@@ -25,7 +24,6 @@ RobotomyRequestForm &RobotomyRequestForm::operator=(const RobotomyRequestForm &o
 
 void	RobotomyRequestForm::executeAction() const{
 	std::cout << "***DRRRRRRRR...DRRRRRRR...drilling noises...***\n";
-	std::srand(std::time(NULL));
 	if (std::rand() % 2 == 0){
 		std::cout << _target << " has been robotomized\n";
 	}

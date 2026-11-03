@@ -5,9 +5,10 @@
 	#include "PresidentialPardonForm.hpp"
 
 	#include <iostream>
+	#include <ctime>
 
 	int main (){
-		
+		std::srand(std::time(NULL));
 		ShrubberyCreationForm a("garden");
 		std::cout << a;
 

@@ -6,9 +6,12 @@
 	#include "Intern.hpp"
 
 	#include <iostream>
+	#include <ctime>
 
 	int main (){
 		
+		std::srand(std::time(NULL));
+
 		Intern a;
 		AForm* sf;
 
