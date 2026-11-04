@@ -6,6 +6,7 @@
 
 	#include <iostream>
 	#include <ctime>
+	#include <cstdlib>
 
 	int main (){
 		std::srand(std::time(NULL));
