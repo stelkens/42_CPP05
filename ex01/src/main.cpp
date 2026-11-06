@@ -3,14 +3,14 @@
 	#include <iostream>
 
 	int main (){
-		AForm a ("a", 4, 5);
+		Form a ("a", 4, 5);
 		std::cout << a;
 
 		Bureaucrat Ela ("ela", 16);
 		std::cout << Ela;
 
 		try{
-			a.beSigned(Ela);
+			Ela.signForm(a);
 		}
 		catch(const std::exception &e){
 		std::cout << e.what() << std::endl;
@@ -29,7 +29,7 @@
 		std::cout << a;
 
 		try{
-		AForm tooHigh ("high", -1, 66);
+		Form tooHigh ("high", -1, 66);
 		std::cout << tooHigh;
 		}
 		catch(const std::exception &e){
@@ -37,7 +37,7 @@
 		}
 
 		try{
-		AForm High ("high_again", 44, 0);
+		Form High ("high_again", 44, 0);
 		std::cout << High;
 		}
 		catch(const std::exception &e){
@@ -45,7 +45,7 @@
 		}
 
 		try{
-			AForm tooLow ("low", 255, 15);
+			Form tooLow ("low", 255, 15);
 			std::cout << tooLow;
 		}
 		catch(const std::exception &e){
@@ -54,14 +54,14 @@
 
 
 		try{
-			AForm Low ("low_again", 38, 154);
+			Form Low ("low_again", 38, 154);
 			std::cout << Low;
 		}
 		catch(const std::exception &e){
 			std::cout << e.what() << std::endl;
 		}
 
-		AForm b (a);
+		Form b (a);
 		std::cout << b;
 
 		return 0;
